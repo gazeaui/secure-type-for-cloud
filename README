@@ -1,0 +1,34 @@
+This prototype allows to reduces device in the annotated semantics with an attacker and to typecheck devices.
+
+INSTALLATION
+
+make (require ocaml, ocamlfind, ocamlyacc)
+
+USAGE
+
+./type < filename.op 
+
+where filename is a file which contains the operations to perform.
+The operations can be:
+
+"add device filename;" : add to the process a new device whom commands are in filename. The command are the ones of the paper but can be preceed by "load principal p from <int> ;" and  "load x : pubkey from <int>;" to expresse that a device starts with a shared principal value <int> (resp only with the public key of that principal).
+
+"typecheck;" : type-check all devices of the process
+
+"print (sm)all;" print the process
+
+"reduce;" do a one step reduction of the first thread of the first device of the process (eventually with the first thread of the seond device for internal communication).
+
+"select <int>;" put the device <int> at the first place.
+
+"stop thread;" put the first thread of the first device at the last position.
+
+"attack (public|input|output <f>)" do a labelled reductions (see att.op for examples)
+
+"print trace" print the label transition that the attacker has seen so far.
+
+
+
+
+
+   

@@ -1,0 +1,17 @@
+load serverKeyVar : PubKey from 1;
+let serverKey = serverKeyVar in
+
+newPrin Mobile {} ;
+connect keyChan : Chan(PubKey bot)bot ;
+output keyChan<pub(Mobile)>;
+connect releaseChan : Chan(PrivKeyEnc bot)bot;
+input releaseChan (encaps);
+register Mobile encaps as MyId then
+input keyChan(bobKey);
+let bob = bobKey in
+
+connect upload : Chan(Int {pub(MyId),bob,serverKey}) bot to serverKey as MyId ;
+new sharedSecret : Int {pub(MyId),bob,serverKey} = 24 ;
+output upload <sharedSecret>;
+else
+skip

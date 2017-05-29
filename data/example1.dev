@@ -1,0 +1,6 @@
+newPrin Alice {} ;
+newPrin Bob {} ;
+new x : Int {pub(Alice)} = 5 ;
+new y : Int {pub(Alice),pub(Bob)} = 7;
+x := y; 
+skip 

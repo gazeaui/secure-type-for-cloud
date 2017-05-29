@@ -1,0 +1,13 @@
+add device data/test.dev ;
+typecheck;
+print all; 
+attacker public;
+reduce;
+print small;
+reduce;
+print small;
+attacker input;
+print small;
+attacker output  m0 + 2;
+print trace;
+exit

@@ -1,0 +1,5 @@
+connect aFriend : Chan(Enc{Int} bot)bot ;
+newPrin Alice {};
+new x : Int {pub(Alice)} = 8 ;
+output aFriend < enc {pub(Alice)} (x) >;
+input aFriend (x) ; 

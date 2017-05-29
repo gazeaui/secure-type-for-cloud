@@ -1,0 +1,22 @@
+load serverKeyVar : PubKey from 1;
+let serverKey = serverKeyVar in
+
+accept otherPrin : Chan(PubKey bot)bot ;
+input otherPrin(mobileKey);
+let mobile = mobileKey in
+newPrin Alice {mobile} ;
+accept releasePrin : Chan(PrivKeyEnc bot)bot;
+output releasePrin <release(Alice)>;
+
+accept c : Chan(PubKey bot)bot ;
+input c (bobKey) ;
+output otherPrin <bobKey> ;
+let bob = bobKey in
+output c <pub(Alice)> ;
+connect newUsers : Chan(Array{PubKey}bot)bot;
+output newUsers < {pub(Alice),bobKey} >;
+
+connect upload : Chan(Int {pub(Alice),bob,serverKey}) bot to serverKey as Alice ;
+new sharedSecret : Int {pub(Alice),bob,serverKey} = 42 ;
+output upload <sharedSecret>;
+ 

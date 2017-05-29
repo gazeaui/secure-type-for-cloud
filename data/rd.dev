@@ -1,0 +1,10 @@
+load srvVar : PubKey from 1 ;
+let srv = srvVar in
+newPrin Bob {} ; 
+connect fromBob : Chan(PubKey bot) bot; 
+output fromBob <pub(Bob)> ; 
+input fromBob (aliceKey) ; 
+let alice = aliceKey in
+connect download : Chan(Int {pub(Bob), alice, srv}) bot to srv as Bob ; 
+input download (data) ; 
+skip

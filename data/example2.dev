@@ -1,0 +1,7 @@
+newPrin Alice {} ;
+newPrin Bob {} ;
+new x : Int {pub(Alice)} = 5 ;
+new y : Int {pub(Alice) , pub(Bob)} = 7 ;
+if( x = 1)
+then
+	y : = 1 ; 

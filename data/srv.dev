@@ -1,0 +1,43 @@
+load principal Server from 1 ;
+new usage : Array{Int} bot = {0, 0, 0 } ; 
+new blocked : Array{Int} bot = {0, 0, 0 } ; 
+new nextId : Int bot = 0 ; 
+{
+      ! accept newUsers : Chan(Array{PubKey} bot) bot; 
+        input newUsers (client1client2) ; 
+        let client1 = client1client2[0] in
+        let client2 = client1client2[1] in 
+        new accountID : Int bot = nextId ; 
+        nextId := nextId+1 ;
+        if(accountID <= 3) then { 
+        new data : Int {pub(Server), client1, client2} = 0 ; 
+        {
+                {
+                        ! accept upload : Chan(Int {pub(Server), client1, client2}) bot from client1 as Server ; 
+                        if (blocked[accountID] = 0 ) then 
+                                input upload (z) ; 
+                                usage[accountID] := usage[accountID]+1 ; 
+                                data := z ; 
+                |
+                        accept download : Chan(Int {pub(Server), client1, client2}) bot from client1 as Server ; 
+                        if (blocked[accountID] = 0 ) then 
+                                usage[accountID] := usage[accountID]+1 ; 
+                                output download <data> ; 
+                } 
+        |
+                {
+                        accept upload : Chan(Int {pub(Server), client1, client2}) bot from client2 as Server ; 
+                        if (blocked[accountID] = 0 ) then 
+                                input upload (z) ; 
+                                usage[accountID] := usage[accountID]+1 ; 
+                                data := z ; 
+                |
+                        accept download : Chan(Int {pub(Server), client1, client2}) bot from client2 as Server ; 
+                        if (blocked[accountID] = 0 ) then 
+                                usage[accountID] := usage[accountID]+1 ; 
+                                output download <data> ; 
+                }
+        }
+|
+        skip
+}}
